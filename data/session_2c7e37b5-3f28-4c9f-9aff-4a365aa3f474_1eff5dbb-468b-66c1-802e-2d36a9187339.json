@@ -1,0 +1,1058 @@
+{
+  "values": {
+    "messages": [
+      {
+        "content": "\nEres un asesor de tecnología especializado en el diseño de sistemas ERP. \n\nTu tarea es entrevistar al cliente para recopilar toda la información necesaria, utilizando un enfoque conversacional amigable. \nDebes obtener información sobre los siguientes puntos:\n\n1. Número de empleados\n2. Número de usuarios únicos que tendrá el sistema\n3. Número de roles diferentes\n4. Industria de la empresa\n5. Descripción completa de productos y servicios ofrecidos, modelo de negocio\n6. Segmentos de clientes y sus características\n7. Diferentes proveedores, cómo trabajan y cómo se les paga\n8. Módulos generales o información que estén seguros que el sistema debería cubrir\n9. Nivel de simplicidad vs. completitud del sistema (si quieren algo muy simple o algo muy completo)\n10. ¿Cuál es el dolor principal que quieren resolver con la implementación del sistema?\n11. Qué otro software utilizan y qué rol juega cada uno\n12. ¿Con qué software debemos integrarnos para lograr una experiencia increíble?\n13. ¿Tienen documentos para compartir sobre cómo trabajan hoy que les gustaría reemplazar?\n14. Datos de marca de la empresa para personalización\n\nINSTRUCCIONES IMPORTANTES:\n- Mantén la conversación natural y amigable, como un consultor de gestión empresarial\n- Pregunta de manera conversacional, no como una lista de verificación\n- Si el usuario no proporciona suficiente detalle, haz preguntas de seguimiento\n- Cuando tengas toda la información requerida, establece is_finished = True\n- De lo contrario, mantén is_finished = False\n- Solo termina cuando tengas información sobre TODOS los puntos mencionados\n\nComienza con una presentación cordial y tu primera pregunta.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "name": null,
+        "id": "aa4e69d5-c164-4624-8d95-98367c4a2a69"
+      },
+      {
+        "content": "Hola, estoy interesado en un sistema ERP para mi empresa.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "c7c0acf4-68f2-4cef-bc1b-e73e49bda483",
+        "example": false
+      },
+      {
+        "content": "Por favor, responda los mensajes para continuar la entrevista.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "name": null,
+        "id": "c1d64300-a6a3-44c6-8396-302fdc5fbad0"
+      },
+      {
+        "content": "hola",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "bc9f5260-e284-4b41-9526-816f6008c9c6",
+        "example": false
+      },
+      {
+        "content": "¡Hola! Es un placer conocerte. Estoy aquí para ayudarte a diseñar un sistema ERP que se ajuste a las necesidades de tu empresa. Para comenzar, ¿podrías decirme cuántos empleados tiene tu empresa?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "61f1c125-12ee-4793-920a-40ab64c35b7d",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "somos 5 pero estamos creciendo",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "b98341d8-f13d-412b-918f-05495daa1400",
+        "example": false
+      },
+      {
+        "content": "¡Eso suena emocionante! Es genial saber que están en crecimiento. Ahora, ¿cuántos usuarios únicos crees que tendrán acceso al sistema ERP?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "80c8a16f-c2fb-4d52-939f-982e4dfa59fa",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "creo que 4, 3 admin y una para el operario",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "fe8e1fc2-2668-491b-8a4d-274234ab87b8",
+        "example": false
+      },
+      {
+        "content": "Perfecto, eso nos da una buena idea de cómo se estructurará el acceso al sistema. Ahora, ¿cuántos roles diferentes tendrán en el sistema? Mencionaste 3 administradores y un operario, pero ¿hay otros roles que consideres importantes?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "c0fe4956-6986-45c4-95ed-c949e428aa06",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "nono ninguno mas",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "467c2779-040e-4da0-8800-f80ab3317c1d",
+        "example": false
+      },
+      {
+        "content": "Gracias por la aclaración. Ahora, me gustaría saber en qué industria opera tu empresa. ¿Podrías compartir eso conmigo?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "f3a57abd-bbe8-4e07-b87d-628546b276f4",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "si, ensamblamos grupos electrógenos con motores honda y alternadores italianos, fabricamos nosotros mismos las cabinas",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "a74ac7f3-4997-4a6d-a0ee-09c6ba9d420b",
+        "example": false
+      },
+      {
+        "content": "¡Interesante! La industria de los grupos electrógenos es muy específica y tiene sus propios desafíos. Ahora, me gustaría saber más sobre los productos y servicios que ofrecen. ¿Podrías darme una descripción completa de lo que fabrican y cómo funciona su modelo de negocio?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "73274fdb-8bf9-42b6-9c77-f95a773fdca4",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "claro, como te decía importamos de italia los alternadores y somos oficiales de honda, el resto lo fabricamos todo nosotros, tenemos una metalurgica donde se fabrican caños de escape, cabinas, y otros detalles que forman parte del proceso de producción, después hay un proceso de ensamblado y cableado electrico interesante que realizan dos personas. estamos asociados a una empresa de venta de maquinas industriales con 3 locales, donde los vendedores son oficiales nuestros y venden a la calle, después vendemos por instagram pero sobre todo a clientes grandes como barrios privados u otrso distribuidores. eso es suficiente? o hay algo más especifico que te interesaría?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "3c6dca25-139a-4c5c-9681-7cb5e11ace3d",
+        "example": false
+      },
+      {
+        "content": "Gracias por la detallada descripción de su modelo de negocio. Es muy útil para entender cómo funciona su empresa. Ahora, me gustaría saber más sobre sus segmentos de clientes. ¿Quiénes son sus principales clientes y cuáles son sus características?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "0f01a543-812e-4f34-9214-b862b71ac854",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "bueno, ya te conté bastante acerca de eso, necesitas algun detalle?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "4b1ef81b-17ae-46eb-a8e2-aac953cd845a",
+        "example": false
+      },
+      {
+        "content": "Agradezco la información que has compartido. Para tener una visión más completa, me gustaría saber sobre los diferentes proveedores con los que trabajan. ¿Cómo suelen trabajar con ellos y cómo se les paga?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "be535630-1076-4f80-8ad8-5e4d81b4e2a8",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "perfecto, solemos hacer compras grandes cada bastante tiempo, pero siempre intentamos tener buen stock. pagamos con cheques a 90 días por lo general. 30 las compras más chicas, o incluso cuenta corriente grande",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "c720e934-236e-4b31-993e-4a03b25d39a9",
+        "example": false
+      },
+      {
+        "content": "Gracias por la información sobre sus proveedores. Ahora, me gustaría saber qué módulos generales o qué tipo de información consideran que el sistema ERP debería cubrir. ¿Tienen alguna idea específica en mente?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "7cb7f73a-bf5b-4ea7-bac6-cf1b80d8d6e1",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "datos y cuentas de proveedores y clientes, linkeadas a la caja con pagos y cheques, presupuestos, preparación de pedidos con estados, stock de productos e insumos, gestión de servicios tecnicos, remitos, actualización masiva de precios. creo que con eso estaremos bien, se te ocurre alguna otra funcionalidad clave?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "ddf2aae8-8a73-4c89-8680-f732a7ef8081",
+        "example": false
+      },
+      {
+        "content": "Gracias por detallar los módulos que consideran importantes. Me parece que cubren muchas áreas clave. Ahora, me gustaría saber qué nivel de simplicidad versus completitud buscan en el sistema. ¿Prefieren algo muy simple o algo más completo y robusto?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "d03fcbdb-cea9-4c4c-9101-ee2a65a45d0d",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "prefiero algo bien simple más que nada, pero puedes hacerme alguna sugerencia respecto a los modulos y functionalidades que te dije? crees que se le podría agregar algo clave en base a casos de exito previos?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "46f9a92a-2596-429d-b1ee-025d8d52ac8c",
+        "example": false
+      },
+      {
+        "content": "Entiendo que prefieres un sistema simple, lo cual es totalmente válido. En base a casos de éxito previos, podría sugerir agregar un módulo de informes que te permita visualizar el rendimiento de ventas y el estado del stock de manera sencilla. También, un sistema de alertas para reabastecimiento de insumos podría ser útil. Ahora, me gustaría saber cuál es el dolor principal que quieren resolver con la implementación del sistema. ¿Hay algún problema específico que estén enfrentando actualmente?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "e327aeca-c373-4a40-b087-6d6bd332c446",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "bueno si, un tema crítico es la gestión de stock: es clave que el sistema sea sencillo para que los operarios puedan actualizar los movimientos de manera comoda y la info este actualizada. despues como vos decís las vistas de reportes y alertas para reabastecimiento son claves",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "be33d55a-4975-4380-bfca-d11591558026",
+        "example": false
+      },
+      {
+        "content": "Entiendo, la gestión de stock es fundamental y es importante que el sistema sea fácil de usar para los operarios. Ahora, me gustaría saber qué otro software están utilizando actualmente y qué rol juega cada uno en su operación. ¿Podrías compartir eso conmigo?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "e5edffd0-71aa-455b-8c9d-20de36c241a7",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "en realidad usamos nuestra pagina web para vender, sabemos que se pued integrar, pero el resto de los procesos los manejamos con papel",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "fd1de4da-8997-413b-be29-8a1800bd71c7",
+        "example": false
+      },
+      {
+        "content": "Gracias por la información sobre el uso de su página web. Ahora, me gustaría saber si tienen documentos que puedan compartir sobre cómo trabajan hoy y que les gustaría reemplazar con el nuevo sistema. Esto podría ayudarnos a entender mejor sus procesos actuales.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "2a994682-224e-4518-91df-6db9c7cac3c0",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "si seguro, después de la reunión te lo envío todo por mail para que vean los datos que solemos llevar en cada parte",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "13fc176b-8137-41bf-a31e-1805af4294b4",
+        "example": false
+      },
+      {
+        "content": "Perfecto, estaré atento a los documentos que me envíes por correo. Por último, me gustaría saber un poco más sobre los datos de marca de la empresa para personalizar el sistema. ¿Tienen algún logo, colores o elementos de marca que deberíamos considerar?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "34e823de-7cbf-4f0f-8be3-a5947c2dab17",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "tenemos una estetica moderna con un logo verde y el resto todo blanco. después tambén te envio el logo\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "3e9d3838-2eb0-4c63-98b1-aa3cfd045817",
+        "example": false
+      },
+      {
+        "content": "¡Excelente! Ya tengo toda la información necesaria para diseñar tu sistema ERP. Muchas gracias por tu tiempo y por compartir todos los detalles. Estoy seguro de que podremos crear una solución que se ajuste perfectamente a tus necesidades.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "ai",
+        "name": null,
+        "id": "fb083935-192a-458a-b97c-2e2bb9f70374",
+        "example": false,
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      }
+    ],
+    "company_name": "",
+    "is_finished": true,
+    "erp_design": {
+      "tables": [
+        {
+          "name": "Empleados",
+          "columns": [
+            "id_empleado (INT)",
+            "nombre (VARCHAR)",
+            "apellido (VARCHAR)",
+            "rol (VARCHAR)",
+            "fecha_ingreso (DATE)"
+          ],
+          "description": "Tabla que almacena la información de los empleados de la empresa."
+        },
+        {
+          "name": "Usuarios",
+          "columns": [
+            "id_usuario (INT)",
+            "nombre_usuario (VARCHAR)",
+            "contraseña (VARCHAR)",
+            "rol (VARCHAR)",
+            "id_empleado (INT)"
+          ],
+          "description": "Tabla que gestiona los usuarios del sistema ERP, vinculando cada usuario a un empleado."
+        },
+        {
+          "name": "Roles",
+          "columns": [
+            "id_rol (INT)",
+            "nombre_rol (VARCHAR)",
+            "descripcion (TEXT)"
+          ],
+          "description": "Tabla que define los diferentes roles que pueden tener los usuarios en el sistema."
+        },
+        {
+          "name": "Proveedores",
+          "columns": [
+            "id_proveedor (INT)",
+            "nombre (VARCHAR)",
+            "contacto (VARCHAR)",
+            "telefono (VARCHAR)",
+            "direccion (VARCHAR)",
+            "condiciones_pago (VARCHAR)"
+          ],
+          "description": "Tabla que almacena la información de los proveedores con los que trabaja la empresa."
+        },
+        {
+          "name": "Clientes",
+          "columns": [
+            "id_cliente (INT)",
+            "nombre (VARCHAR)",
+            "tipo_cliente (VARCHAR)",
+            "contacto (VARCHAR)",
+            "telefono (VARCHAR)",
+            "direccion (VARCHAR)"
+          ],
+          "description": "Tabla que almacena la información de los clientes, incluyendo sus características."
+        },
+        {
+          "name": "Productos",
+          "columns": [
+            "id_producto (INT)",
+            "nombre (VARCHAR)",
+            "descripcion (TEXT)",
+            "precio (DECIMAL)",
+            "stock (INT)"
+          ],
+          "description": "Tabla que almacena la información de los productos fabricados por la empresa."
+        },
+        {
+          "name": "Pedidos",
+          "columns": [
+            "id_pedido (INT)",
+            "id_cliente (INT)",
+            "fecha_pedido (DATE)",
+            "estado (VARCHAR)",
+            "total (DECIMAL)"
+          ],
+          "description": "Tabla que gestiona los pedidos realizados por los clientes."
+        },
+        {
+          "name": "Detalles_Pedido",
+          "columns": [
+            "id_detalle (INT)",
+            "id_pedido (INT)",
+            "id_producto (INT)",
+            "cantidad (INT)",
+            "precio_unitario (DECIMAL)"
+          ],
+          "description": "Tabla que almacena los detalles de cada pedido, incluyendo los productos y cantidades."
+        },
+        {
+          "name": "Stock",
+          "columns": [
+            "id_stock (INT)",
+            "id_producto (INT)",
+            "cantidad_disponible (INT)",
+            "fecha_actualizacion (DATE)"
+          ],
+          "description": "Tabla que gestiona el stock de productos e insumos."
+        },
+        {
+          "name": "Servicios_Tecnicos",
+          "columns": [
+            "id_servicio (INT)",
+            "id_cliente (INT)",
+            "descripcion (TEXT)",
+            "fecha_servicio (DATE)",
+            "estado (VARCHAR)"
+          ],
+          "description": "Tabla que gestiona los servicios técnicos ofrecidos a los clientes."
+        },
+        {
+          "name": "Pagos",
+          "columns": [
+            "id_pago (INT)",
+            "id_proveedor (INT)",
+            "monto (DECIMAL)",
+            "fecha_pago (DATE)",
+            "metodo_pago (VARCHAR)"
+          ],
+          "description": "Tabla que gestiona los pagos realizados a los proveedores."
+        },
+        {
+          "name": "Presupuestos",
+          "columns": [
+            "id_presupuesto (INT)",
+            "id_cliente (INT)",
+            "fecha_presupuesto (DATE)",
+            "total (DECIMAL)",
+            "estado (VARCHAR)"
+          ],
+          "description": "Tabla que almacena los presupuestos generados para los clientes."
+        },
+        {
+          "name": "Remitos",
+          "columns": [
+            "id_remito (INT)",
+            "id_pedido (INT)",
+            "fecha_remito (DATE)",
+            "estado (VARCHAR)"
+          ],
+          "description": "Tabla que gestiona los remitos generados para los pedidos."
+        },
+        {
+          "name": "Alertas_Stock",
+          "columns": [
+            "id_alerta (INT)",
+            "id_producto (INT)",
+            "nivel_minimo (INT)",
+            "fecha_alerta (DATE)"
+          ],
+          "description": "Tabla que gestiona las alertas de stock para reabastecimiento de insumos."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Actualizar stock tras entrega de pedido",
+          "table": "Pedidos",
+          "steps": [
+            "Cuando un pedido es marcado como entregado, se identifica el id_pedido correspondiente.",
+            "Se obtienen los detalles del pedido desde la tabla Detalles_Pedido.",
+            "Por cada detalle del pedido, se actualiza la cantidad disponible en la tabla Stock restando la cantidad vendida."
+          ],
+          "access": [
+            "update"
+          ],
+          "description": "Actualiza automáticamente el stock de productos cuando un pedido es entregado."
+        },
+        {
+          "name": "Generar alerta de stock bajo",
+          "table": "Stock",
+          "steps": [
+            "Se verifica periódicamente el nivel de stock de cada producto.",
+            "Si la cantidad disponible de un producto es menor que el nivel mínimo establecido en la tabla Alertas_Stock, se genera una alerta.",
+            "La alerta se almacena en la tabla Alertas_Stock con la fecha actual."
+          ],
+          "access": [
+            "insert"
+          ],
+          "description": "Genera alertas automáticamente cuando el stock de un producto está por debajo del nivel mínimo."
+        },
+        {
+          "name": "Registrar pago a proveedor",
+          "table": "Pagos",
+          "steps": [
+            "Cuando se registra un nuevo pago a un proveedor, se obtiene el id_proveedor correspondiente.",
+            "Se actualiza el saldo del proveedor en la tabla Proveedores restando el monto del pago."
+          ],
+          "access": [
+            "insert"
+          ],
+          "description": "Registra un pago a un proveedor y actualiza su saldo."
+        },
+        {
+          "name": "Crear presupuesto y vincular cliente",
+          "table": "Presupuestos",
+          "steps": [
+            "Cuando se crea un nuevo presupuesto, se obtiene el id_cliente correspondiente.",
+            "Se almacena el presupuesto en la tabla Presupuestos con el estado inicial.",
+            "Se puede enviar un correo electrónico al cliente con el presupuesto adjunto."
+          ],
+          "access": [
+            "insert"
+          ],
+          "description": "Crea un presupuesto para un cliente y puede enviarle un correo electrónico con la información."
+        },
+        {
+          "name": "Actualizar estado de servicio técnico",
+          "table": "Servicios_Tecnicos",
+          "steps": [
+            "Cuando se actualiza el estado de un servicio técnico, se identifica el id_servicio correspondiente.",
+            "Se actualiza el estado en la tabla Servicios_Tecnicos.",
+            "Si el estado es 'completado', se puede enviar un correo al cliente informando sobre la finalización del servicio."
+          ],
+          "access": [
+            "update"
+          ],
+          "description": "Actualiza el estado de un servicio técnico y notifica al cliente si es necesario."
+        },
+        {
+          "name": "Generar remito al crear pedido",
+          "table": "Pedidos",
+          "steps": [
+            "Cuando se crea un nuevo pedido, se genera automáticamente un remito asociado.",
+            "Se almacena el remito en la tabla Remitos con el estado inicial y la fecha actual."
+          ],
+          "access": [
+            "insert"
+          ],
+          "description": "Genera un remito automáticamente al crear un nuevo pedido."
+        },
+        {
+          "name": "Actualizar precios masivos",
+          "table": "Productos",
+          "steps": [
+            "Cuando se realiza una actualización masiva de precios, se obtienen todos los productos de la tabla Productos.",
+            "Se actualizan los precios de los productos según la nueva información proporcionada."
+          ],
+          "access": [
+            "update"
+          ],
+          "description": "Permite actualizar los precios de los productos de manera masiva."
+        },
+        {
+          "name": "Enviar recordatorio de reabastecimiento",
+          "table": "Alertas_Stock",
+          "steps": [
+            "Cuando se genera una alerta de stock bajo, se envía un correo electrónico al responsable de compras.",
+            "El correo incluye información sobre el producto y el nivel de stock actual."
+          ],
+          "access": [
+            "insert"
+          ],
+          "description": "Envía un recordatorio por correo electrónico cuando se genera una alerta de reabastecimiento."
+        }
+      ],
+      "views": [
+        {
+          "name": "Pedidos",
+          "table": "Pedidos",
+          "style": "gallery",
+          "position": "main_menu",
+          "columns_displayed": [
+            "id_pedido",
+            "fecha_pedido",
+            "total"
+          ]
+        },
+        {
+          "name": "Clientes",
+          "table": "Clientes",
+          "style": "gallery",
+          "position": "side_menu",
+          "columns_displayed": [
+            "nombre",
+            "tipo_cliente",
+            "telefono"
+          ]
+        },
+        {
+          "name": "Stock",
+          "table": "Stock",
+          "style": "gallery",
+          "position": "side_menu",
+          "columns_displayed": [
+            "id_producto",
+            "cantidad_disponible",
+            "fecha_actualizacion"
+          ]
+        },
+        {
+          "name": "Proveedores",
+          "table": "Proveedores",
+          "style": "gallery",
+          "position": "side_menu",
+          "columns_displayed": [
+            "nombre",
+            "telefono",
+            "condiciones_pago"
+          ]
+        },
+        {
+          "name": "Servicios",
+          "table": "Servicios_Tecnicos",
+          "style": "gallery",
+          "position": "side_menu",
+          "columns_displayed": [
+            "id_servicio",
+            "descripcion",
+            "estado"
+          ]
+        },
+        {
+          "name": "Presupuestos",
+          "table": "Presupuestos",
+          "style": "gallery",
+          "position": "side_menu",
+          "columns_displayed": [
+            "id_presupuesto",
+            "fecha_presupuesto",
+            "total"
+          ]
+        },
+        {
+          "name": "Alertas",
+          "table": "Alertas_Stock",
+          "style": "gallery",
+          "position": "side_menu",
+          "columns_displayed": [
+            "id_alerta",
+            "id_producto",
+            "nivel_minimo"
+          ]
+        }
+      ],
+      "main_color": "green #229954"
+    },
+    "feedback": ""
+  },
+  "next": [
+    "get_feedback"
+  ],
+  "tasks": [
+    {
+      "id": "37e03232-4b05-f0bf-85db-6b10d1b4a717",
+      "name": "get_feedback",
+      "path": [
+        "__pregel_pull",
+        "get_feedback"
+      ],
+      "error": null,
+      "interrupts": [],
+      "checkpoint": null,
+      "state": null,
+      "result": null
+    }
+  ],
+  "metadata": {
+    "step": 46,
+    "run_id": "1eff5dba-49c7-6201-8605-e225647778c5",
+    "source": "loop",
+    "writes": {
+      "design_erp": {
+        "erp_design": {
+          "views": [
+            {
+              "name": "Pedidos",
+              "style": "gallery",
+              "table": "Pedidos",
+              "position": "main_menu",
+              "columns_displayed": [
+                "id_pedido",
+                "fecha_pedido",
+                "total"
+              ]
+            },
+            {
+              "name": "Clientes",
+              "style": "gallery",
+              "table": "Clientes",
+              "position": "side_menu",
+              "columns_displayed": [
+                "nombre",
+                "tipo_cliente",
+                "telefono"
+              ]
+            },
+            {
+              "name": "Stock",
+              "style": "gallery",
+              "table": "Stock",
+              "position": "side_menu",
+              "columns_displayed": [
+                "id_producto",
+                "cantidad_disponible",
+                "fecha_actualizacion"
+              ]
+            },
+            {
+              "name": "Proveedores",
+              "style": "gallery",
+              "table": "Proveedores",
+              "position": "side_menu",
+              "columns_displayed": [
+                "nombre",
+                "telefono",
+                "condiciones_pago"
+              ]
+            },
+            {
+              "name": "Servicios",
+              "style": "gallery",
+              "table": "Servicios_Tecnicos",
+              "position": "side_menu",
+              "columns_displayed": [
+                "id_servicio",
+                "descripcion",
+                "estado"
+              ]
+            },
+            {
+              "name": "Presupuestos",
+              "style": "gallery",
+              "table": "Presupuestos",
+              "position": "side_menu",
+              "columns_displayed": [
+                "id_presupuesto",
+                "fecha_presupuesto",
+                "total"
+              ]
+            },
+            {
+              "name": "Alertas",
+              "style": "gallery",
+              "table": "Alertas_Stock",
+              "position": "side_menu",
+              "columns_displayed": [
+                "id_alerta",
+                "id_producto",
+                "nivel_minimo"
+              ]
+            }
+          ],
+          "tables": [
+            {
+              "name": "Empleados",
+              "columns": [
+                "id_empleado (INT)",
+                "nombre (VARCHAR)",
+                "apellido (VARCHAR)",
+                "rol (VARCHAR)",
+                "fecha_ingreso (DATE)"
+              ],
+              "description": "Tabla que almacena la información de los empleados de la empresa."
+            },
+            {
+              "name": "Usuarios",
+              "columns": [
+                "id_usuario (INT)",
+                "nombre_usuario (VARCHAR)",
+                "contraseña (VARCHAR)",
+                "rol (VARCHAR)",
+                "id_empleado (INT)"
+              ],
+              "description": "Tabla que gestiona los usuarios del sistema ERP, vinculando cada usuario a un empleado."
+            },
+            {
+              "name": "Roles",
+              "columns": [
+                "id_rol (INT)",
+                "nombre_rol (VARCHAR)",
+                "descripcion (TEXT)"
+              ],
+              "description": "Tabla que define los diferentes roles que pueden tener los usuarios en el sistema."
+            },
+            {
+              "name": "Proveedores",
+              "columns": [
+                "id_proveedor (INT)",
+                "nombre (VARCHAR)",
+                "contacto (VARCHAR)",
+                "telefono (VARCHAR)",
+                "direccion (VARCHAR)",
+                "condiciones_pago (VARCHAR)"
+              ],
+              "description": "Tabla que almacena la información de los proveedores con los que trabaja la empresa."
+            },
+            {
+              "name": "Clientes",
+              "columns": [
+                "id_cliente (INT)",
+                "nombre (VARCHAR)",
+                "tipo_cliente (VARCHAR)",
+                "contacto (VARCHAR)",
+                "telefono (VARCHAR)",
+                "direccion (VARCHAR)"
+              ],
+              "description": "Tabla que almacena la información de los clientes, incluyendo sus características."
+            },
+            {
+              "name": "Productos",
+              "columns": [
+                "id_producto (INT)",
+                "nombre (VARCHAR)",
+                "descripcion (TEXT)",
+                "precio (DECIMAL)",
+                "stock (INT)"
+              ],
+              "description": "Tabla que almacena la información de los productos fabricados por la empresa."
+            },
+            {
+              "name": "Pedidos",
+              "columns": [
+                "id_pedido (INT)",
+                "id_cliente (INT)",
+                "fecha_pedido (DATE)",
+                "estado (VARCHAR)",
+                "total (DECIMAL)"
+              ],
+              "description": "Tabla que gestiona los pedidos realizados por los clientes."
+            },
+            {
+              "name": "Detalles_Pedido",
+              "columns": [
+                "id_detalle (INT)",
+                "id_pedido (INT)",
+                "id_producto (INT)",
+                "cantidad (INT)",
+                "precio_unitario (DECIMAL)"
+              ],
+              "description": "Tabla que almacena los detalles de cada pedido, incluyendo los productos y cantidades."
+            },
+            {
+              "name": "Stock",
+              "columns": [
+                "id_stock (INT)",
+                "id_producto (INT)",
+                "cantidad_disponible (INT)",
+                "fecha_actualizacion (DATE)"
+              ],
+              "description": "Tabla que gestiona el stock de productos e insumos."
+            },
+            {
+              "name": "Servicios_Tecnicos",
+              "columns": [
+                "id_servicio (INT)",
+                "id_cliente (INT)",
+                "descripcion (TEXT)",
+                "fecha_servicio (DATE)",
+                "estado (VARCHAR)"
+              ],
+              "description": "Tabla que gestiona los servicios técnicos ofrecidos a los clientes."
+            },
+            {
+              "name": "Pagos",
+              "columns": [
+                "id_pago (INT)",
+                "id_proveedor (INT)",
+                "monto (DECIMAL)",
+                "fecha_pago (DATE)",
+                "metodo_pago (VARCHAR)"
+              ],
+              "description": "Tabla que gestiona los pagos realizados a los proveedores."
+            },
+            {
+              "name": "Presupuestos",
+              "columns": [
+                "id_presupuesto (INT)",
+                "id_cliente (INT)",
+                "fecha_presupuesto (DATE)",
+                "total (DECIMAL)",
+                "estado (VARCHAR)"
+              ],
+              "description": "Tabla que almacena los presupuestos generados para los clientes."
+            },
+            {
+              "name": "Remitos",
+              "columns": [
+                "id_remito (INT)",
+                "id_pedido (INT)",
+                "fecha_remito (DATE)",
+                "estado (VARCHAR)"
+              ],
+              "description": "Tabla que gestiona los remitos generados para los pedidos."
+            },
+            {
+              "name": "Alertas_Stock",
+              "columns": [
+                "id_alerta (INT)",
+                "id_producto (INT)",
+                "nivel_minimo (INT)",
+                "fecha_alerta (DATE)"
+              ],
+              "description": "Tabla que gestiona las alertas de stock para reabastecimiento de insumos."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Actualizar stock tras entrega de pedido",
+              "steps": [
+                "Cuando un pedido es marcado como entregado, se identifica el id_pedido correspondiente.",
+                "Se obtienen los detalles del pedido desde la tabla Detalles_Pedido.",
+                "Por cada detalle del pedido, se actualiza la cantidad disponible en la tabla Stock restando la cantidad vendida."
+              ],
+              "table": "Pedidos",
+              "access": [
+                "update"
+              ],
+              "description": "Actualiza automáticamente el stock de productos cuando un pedido es entregado."
+            },
+            {
+              "name": "Generar alerta de stock bajo",
+              "steps": [
+                "Se verifica periódicamente el nivel de stock de cada producto.",
+                "Si la cantidad disponible de un producto es menor que el nivel mínimo establecido en la tabla Alertas_Stock, se genera una alerta.",
+                "La alerta se almacena en la tabla Alertas_Stock con la fecha actual."
+              ],
+              "table": "Stock",
+              "access": [
+                "insert"
+              ],
+              "description": "Genera alertas automáticamente cuando el stock de un producto está por debajo del nivel mínimo."
+            },
+            {
+              "name": "Registrar pago a proveedor",
+              "steps": [
+                "Cuando se registra un nuevo pago a un proveedor, se obtiene el id_proveedor correspondiente.",
+                "Se actualiza el saldo del proveedor en la tabla Proveedores restando el monto del pago."
+              ],
+              "table": "Pagos",
+              "access": [
+                "insert"
+              ],
+              "description": "Registra un pago a un proveedor y actualiza su saldo."
+            },
+            {
+              "name": "Crear presupuesto y vincular cliente",
+              "steps": [
+                "Cuando se crea un nuevo presupuesto, se obtiene el id_cliente correspondiente.",
+                "Se almacena el presupuesto en la tabla Presupuestos con el estado inicial.",
+                "Se puede enviar un correo electrónico al cliente con el presupuesto adjunto."
+              ],
+              "table": "Presupuestos",
+              "access": [
+                "insert"
+              ],
+              "description": "Crea un presupuesto para un cliente y puede enviarle un correo electrónico con la información."
+            },
+            {
+              "name": "Actualizar estado de servicio técnico",
+              "steps": [
+                "Cuando se actualiza el estado de un servicio técnico, se identifica el id_servicio correspondiente.",
+                "Se actualiza el estado en la tabla Servicios_Tecnicos.",
+                "Si el estado es 'completado', se puede enviar un correo al cliente informando sobre la finalización del servicio."
+              ],
+              "table": "Servicios_Tecnicos",
+              "access": [
+                "update"
+              ],
+              "description": "Actualiza el estado de un servicio técnico y notifica al cliente si es necesario."
+            },
+            {
+              "name": "Generar remito al crear pedido",
+              "steps": [
+                "Cuando se crea un nuevo pedido, se genera automáticamente un remito asociado.",
+                "Se almacena el remito en la tabla Remitos con el estado inicial y la fecha actual."
+              ],
+              "table": "Pedidos",
+              "access": [
+                "insert"
+              ],
+              "description": "Genera un remito automáticamente al crear un nuevo pedido."
+            },
+            {
+              "name": "Actualizar precios masivos",
+              "steps": [
+                "Cuando se realiza una actualización masiva de precios, se obtienen todos los productos de la tabla Productos.",
+                "Se actualizan los precios de los productos según la nueva información proporcionada."
+              ],
+              "table": "Productos",
+              "access": [
+                "update"
+              ],
+              "description": "Permite actualizar los precios de los productos de manera masiva."
+            },
+            {
+              "name": "Enviar recordatorio de reabastecimiento",
+              "steps": [
+                "Cuando se genera una alerta de stock bajo, se envía un correo electrónico al responsable de compras.",
+                "El correo incluye información sobre el producto y el nivel de stock actual."
+              ],
+              "table": "Alertas_Stock",
+              "access": [
+                "insert"
+              ],
+              "description": "Envía un recordatorio por correo electrónico cuando se genera una alerta de reabastecimiento."
+            }
+          ],
+          "main_color": "green #229954"
+        }
+      }
+    },
+    "parents": {},
+    "user_id": "",
+    "graph_id": "designer_agent",
+    "thread_id": "2c7e37b5-3f28-4c9f-9aff-4a365aa3f474",
+    "created_by": "system",
+    "run_attempt": 1,
+    "assistant_id": "0cadb1de-c2c3-5af8-9a4b-749d41fea454",
+    "checkpoint_id": "1eff5dba-487c-6efb-802c-6cf3fa972bcd",
+    "checkpoint_ns": "",
+    "x-auth-scheme": "langsmith",
+    "langgraph_host": "self-hosted",
+    "langgraph_plan": "developer",
+    "langgraph_version": "0.3.1",
+    "langgraph_auth_user": null,
+    "langgraph_auth_user_id": "",
+    "langgraph_auth_permissions": []
+  },
+  "created_at": "2025-02-28T13:55:44.517690+00:00",
+  "checkpoint": {
+    "checkpoint_id": "1eff5dbb-468b-66c1-802e-2d36a9187339",
+    "thread_id": "2c7e37b5-3f28-4c9f-9aff-4a365aa3f474",
+    "checkpoint_ns": ""
+  },
+  "parent_checkpoint": {
+    "checkpoint_id": "1eff5dba-487c-6efb-802c-6cf3fa972bcd",
+    "thread_id": "2c7e37b5-3f28-4c9f-9aff-4a365aa3f474",
+    "checkpoint_ns": ""
+  },
+  "checkpoint_id": "1eff5dbb-468b-66c1-802e-2d36a9187339",
+  "parent_checkpoint_id": "1eff5dba-487c-6efb-802c-6cf3fa972bcd"
+}
