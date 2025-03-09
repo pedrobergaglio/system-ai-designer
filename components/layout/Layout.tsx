@@ -7,6 +7,7 @@ import MainContent from './MainContent';
 import BottomDocker from './BottomDocker';
 import InfoPanel from './InfoPanel';
 import MobileNav from './MobileNav';
+import ERPVoiceAssistant from '../voice/ERPVoiceAssistant';
 import { fetchSessionData } from '../../lib/langGraphClient';
 import { logger } from '../../lib/utils';
 
@@ -23,7 +24,9 @@ export default function Layout({ threadId, checkpointId }: LayoutProps) {
     error,
     setError,
     isSidebarOpen,
-    isInfoPanelOpen
+    isInfoPanelOpen,
+    isVoiceAssistantOpen,
+    toggleVoiceAssistant
   } = useUI();
   
   // Fetch data from LangGraph
@@ -87,6 +90,19 @@ export default function Layout({ threadId, checkpointId }: LayoutProps) {
           }`}
         >
           {isInfoPanelOpen && <InfoPanel />}
+        </div>
+        
+        {/* Voice Assistant Panel */}
+        <div 
+          className={`transition-all duration-300 ease-in-out border-l border-gray-200 ${
+            isVoiceAssistantOpen ? 'w-80' : 'w-0'
+          }`}
+        >
+          {isVoiceAssistantOpen && (
+            <div className="h-full">
+              <ERPVoiceAssistant onClose={toggleVoiceAssistant} />
+            </div>
+          )}
         </div>
       </div>
     </div>

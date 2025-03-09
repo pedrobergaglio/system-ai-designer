@@ -17,6 +17,8 @@ interface UIContextType {
   toggleSidebar: () => void;
   isInfoPanelOpen: boolean;
   toggleInfoPanel: () => void;
+  isVoiceAssistantOpen: boolean; // New property
+  toggleVoiceAssistant: () => void; // New method
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -35,6 +37,7 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
   const [isInfoPanelOpen, setIsInfoPanelOpen] = useState<boolean>(
     loadFromLocalStorage('isInfoPanelOpen', true)
   );
+  const [isVoiceAssistantOpen, setIsVoiceAssistantOpen] = useState<boolean>(false); // Initially closed
   
   // Save active view to localStorage when it changes
   useEffect(() => {
@@ -79,6 +82,7 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
   // Toggle functions
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const toggleInfoPanel = () => setIsInfoPanelOpen(!isInfoPanelOpen);
+  const toggleVoiceAssistant = () => setIsVoiceAssistantOpen(prev => !prev); // New method
   
   return (
     <UIContext.Provider
@@ -94,7 +98,9 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
         isSidebarOpen,
         toggleSidebar,
         isInfoPanelOpen,
-        toggleInfoPanel
+        toggleInfoPanel,
+        isVoiceAssistantOpen,
+        toggleVoiceAssistant
       }}
     >
       {children}
