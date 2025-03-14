@@ -12,7 +12,7 @@ export default function Sidebar() {
   return (
     <div className="h-full border-r border-gray-200 overflow-y-auto">
       <div className="p-4 border-b border-gray-200">
-        <h2 className="text-lg font-medium">Views</h2>
+        <h2 className="text-lg font-sm">Views</h2>
       </div>
       
       <nav className="p-2">
@@ -22,7 +22,7 @@ export default function Sidebar() {
               <button
                 className={`w-full text-left px-4 py-2 rounded-md transition-colors duration-200 ${
                   activeView?.name === view.name
-                    ? 'bg-gray-100 font-medium'
+                    ? 'bg-gray-100 font-sm'
                     : 'hover:bg-gray-50'
                 }`}
                 onClick={() => setActiveView(view)}

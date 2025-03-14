@@ -80,7 +80,8 @@ export default function ERPVoiceAssistant({ isOpen = true, onClose }: ERPVoiceAs
     generateDesignFromTranscript, 
     isDesignGenerating, 
     toggleVoiceAssistant,
-    setExperienceState 
+    setExperienceState,
+    experienceState
   } = useUI();
 
   const createRoom = async () => {
@@ -89,9 +90,12 @@ export default function ERPVoiceAssistant({ isOpen = true, onClose }: ERPVoiceAs
       setError(null);
       setConnectionStatus('Creando sala...');
       
-      // Set the experience state to interviewing when creating a room
-      setExperienceState('interviewing'); 
-      console.log('[ERPVoiceAssistant] Setting experience state to interviewing');
+      // Only set experience state to interviewing if we're currently in the 'start' state
+      // This prevents overriding the design_ready state 
+      if (experienceState === 'start') {
+        setExperienceState('interviewing'); 
+        console.log('[ERPVoiceAssistant] Setting experience state to interviewing');
+      }
 
       const response = await fetch('/api/token/route', {
         method: 'POST',
@@ -282,12 +286,25 @@ export default function ERPVoiceAssistant({ isOpen = true, onClose }: ERPVoiceAs
     }
   };
 
+  // Add an effect to properly handle closing behavior
+  useEffect(() => {
+    // Close assistant when the experience state changes to design_ready
+    const handleExperienceStateChange = () => {
+      if (experienceState === 'design_ready' && onClose) {
+        console.log('[ERPVoiceAssistant] Design ready, closing voice assistant');
+        onClose();
+      }
+    };
+    
+    handleExperienceStateChange();
+  }, [experienceState, onClose]);
+
   if (!isOpen) return null;
 
   return (
     <div className="h-full flex flex-col">
-      <div className="bg-black text-white p-3 flex justify-between items-center">
-        <h2 className="text-sm font-bold">Consultor ERP</h2>
+      <div className="bg-gray-900 text-white p-3 flex justify-between items-center">
+        <h2 className="text-sm">Entrevistador</h2>
         {onClose && (
           <button onClick={onClose} className="text-white text-sm hover:bg-gray-400 rounded p-1">
             ✕

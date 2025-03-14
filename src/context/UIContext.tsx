@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { ERPDesign, View } from '../lib/types';
 import { loadFromLocalStorage, saveToLocalStorage, logger } from '../lib/utils';
 import { TranscriptSubmissionData, processTranscriptForDesign } from '../lib/langGraphClient';
@@ -59,6 +59,12 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
   const [experienceState, setExperienceState] = useState<ExperienceState>(
     loadFromLocalStorage('experienceState', 'start')
   );
+
+  // Add a flag to track if voice assistant was manually closed
+  const [voiceAssistantManuallyToggled, setVoiceAssistantManuallyToggled] = useState<boolean>(false);
+  
+  // Add a ref to keep track of the previous state to avoid unnecessary updates
+  const prevExperienceStateRef = useRef<ExperienceState | null>(null);
   
   // Save active view to localStorage when it changes
   useEffect(() => {
@@ -75,8 +81,17 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
 
   // Log the experience state when it changes to help with debugging
   useEffect(() => {
-    console.log('[UIContext] Experience state changed to:', experienceState);
-    saveToLocalStorage('experienceState', experienceState);
+    // Only log and save if the state actually changed
+    if (prevExperienceStateRef.current !== experienceState) {
+      console.log('[UIContext] Experience state changed from', prevExperienceStateRef.current, 'to:', experienceState);
+      saveToLocalStorage('experienceState', experienceState);
+      prevExperienceStateRef.current = experienceState;
+      
+      // Only close voice assistant when transitioning to design_ready
+      if (experienceState === 'design_ready') {
+        setIsVoiceAssistantOpen(false);
+      }
+    }
   }, [experienceState]);
   
   // Restore active view from localStorage when erpDesign is loaded
@@ -214,7 +229,10 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
   // Toggle functions
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const toggleInfoPanel = () => setIsInfoPanelOpen(!isInfoPanelOpen);
-  const toggleVoiceAssistant = () => setIsVoiceAssistantOpen(prev => !prev);
+  const toggleVoiceAssistant = () => {
+    setVoiceAssistantManuallyToggled(true); // Mark as manually toggled
+    setIsVoiceAssistantOpen(prev => !prev);
+  };
   
   return (
     <UIContext.Provider

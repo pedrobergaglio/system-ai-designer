@@ -1,6 +1,6 @@
 import { Client } from '@langchain/langgraph-sdk';
 import { SessionData } from './types';
-import { ERPDesign } from '../lib/types';
+import { ERPDesign } from './types';
 import { traceStep, withTracing } from './processTracer';
 
 // Local LangGraph instance

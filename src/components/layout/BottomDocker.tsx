@@ -1,20 +1,27 @@
 "use client";
 
-import { useUI } from '../../context/UIContext';
+import React from 'react';
+import { useUI } from '@/context/UIContext';
+import { InfoIcon, Mic, PanelLeft, PlusCircle } from 'lucide-react';
 
-export default function BottomDocker() {
+export function BottomDocker() {
   const { 
-    erpDesign, 
-    activeView, 
-    setActiveView,
-    toggleVoiceAssistant,
-    isVoiceAssistantOpen,
-    resetDesignState 
+    toggleSidebar, 
+    toggleVoiceAssistant, 
+    toggleInfoPanel,
+    isVoiceAssistantOpen, 
+    isSidebarOpen,
+    isInfoPanelOpen,
+    experienceState,
+    resetDesignState,
+    erpDesign,
+    activeView,
+    setActiveView
   } = useUI();
-  
-  // Filter views that should appear in the main menu (bottom docker)
-  const mainMenuViews = erpDesign?.views.filter(view => view.position === 'main_menu') || [];
-  
+
+  // Filter views that should appear in the main menu
+  const mainMenuViews = erpDesign?.views?.filter(view => view.position === 'main_menu') || [];
+
   // Function to start a new design process
   const handleStartNewDesign = () => {
     resetDesignState(); // Reset current design state
@@ -22,46 +29,77 @@ export default function BottomDocker() {
   };
 
   return (
-    <div className="h-full flex items-center justify-between px-4 bg-gray-50">
-      <div className="flex-shrink-0 flex items-center">
+    <div className="fixed bottom-0 left-0 right-0 h-12 bg-gray-900 text-white flex items-center justify-between px-4 z-40">
+      {/* Left section */}
+      <div className="flex items-center space-x-2">
         <button 
-          onClick={handleStartNewDesign}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-bold whitespace-nowrap"
+          className={`p-2 rounded-md hover:bg-gray-700 ${isSidebarOpen ? 'bg-gray-700' : ''}`}
+          onClick={toggleSidebar}
+          aria-label="Toggle sidebar"
         >
-          Nuevo Diseño
+          <PanelLeft size={18} />
         </button>
       </div>
       
-      <div className="flex space-x-4 overflow-x-auto py-2 w-full">
-        {mainMenuViews.map((view) => (
-          <button
-            key={view.name}
-            className={`px-4 py-2 whitespace-nowrap rounded-md transition-all duration-200 ${
-              activeView?.name === view.name
-                ? 'bg-gray-900 text-white'
-                : 'hover:bg-gray-100'
-            }`}
-            onClick={() => setActiveView(view)}
+      {/* Center section - show main menu views or status */}
+      <div className="flex-grow flex items-center justify-center px-2 overflow-hidden">
+        {experienceState === 'design_ready' && mainMenuViews.length > 0 ? (
+          <div className="flex space-x-2 overflow-x-auto scrollbar-hide max-w-full">
+            {mainMenuViews.map((view) => (
+              <button
+                key={view.name}
+                className={`px-3 py-1 text-sm rounded-md transition-all whitespace-nowrap ${
+                  activeView?.name === view.name
+                    ? 'bg-white text-gray-900 font-medium'
+                    : 'hover:bg-gray-700'
+                }`}
+                onClick={() => setActiveView(view)}
+              >
+                {view.name}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center text-sm font-medium">
+            {experienceState === 'start' && 'Iniciar diseño de sistema ERP'}
+            {experienceState === 'interviewing' && 'Entrevista en progreso'}
+            {experienceState === 'processing' && 'Procesando diseño...'}
+            {experienceState === 'design_ready' && !mainMenuViews.length && 'Sistema ERP diseñado'}
+          </div>
+        )}
+      </div>
+      
+      {/* Right section */}
+      <div className="flex items-center space-x-2">
+        <button 
+          className={`p-2 rounded-md hover:bg-gray-700 ${isInfoPanelOpen ? 'bg-gray-700' : ''}`}
+          onClick={toggleInfoPanel}
+          aria-label="Ver información del sistema"
+        >
+          <InfoIcon size={18} />
+        </button>
+        
+        {/* New button for starting new interview */}
+        {experienceState === 'design_ready' && (
+          <button 
+            className="p-2 rounded-md hover:bg-gray-700 text-blue-400"
+            onClick={handleStartNewDesign}
+            aria-label="Iniciar nuevo diseño"
           >
-            {view.name}
+            <PlusCircle size={18} />
           </button>
-        ))}
-      </div>
-      
-      <div className="flex items-center space-x-4">
-        <button 
-          onClick={toggleVoiceAssistant}
-          className={`px-4 py-2 ${
-            isVoiceAssistantOpen 
-              ? 'bg-gray-200 text-gray-800' 
-              : 'bg-gray-800 text-white'
-          } rounded-md hover:opacity-90 transition-colors flex items-center`}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clipRule="evenodd" />
-          </svg>
-          {isVoiceAssistantOpen ? 'Cerrar Asistente' : 'Asistente de Voz'}
-        </button>
+        )}
+        
+        {/* Voice assistant button only in appropriate states */}
+        {(experienceState === 'start' || experienceState === 'interviewing') && (
+          <button 
+            className={`p-2 rounded-md hover:bg-gray-700 ${isVoiceAssistantOpen ? 'bg-gray-700' : ''}`}
+            onClick={toggleVoiceAssistant}
+            aria-label="Abrir asistente de voz"
+          >
+            <Mic size={18} />
+          </button>
+        )}
       </div>
     </div>
   );
