@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-03-14T15:46:51.574Z",
+  "function": "finishConversation",
+  "rawPayload": "{\"companyName\": \"Empresa de Prueba\", \"ownerName\": \"Cliente de Prueba\"}",
+  "parsedParams": {
+    "companyName": "Empresa de Prueba",
+    "ownerName": "Cliente de Prueba"
+  }
+}

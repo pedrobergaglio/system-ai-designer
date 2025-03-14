@@ -5,7 +5,7 @@ import json
 import logging
 import uuid
 from dataclasses import asdict, dataclass
-from typing import Any, Dict, Literal
+from typing import Any, Dict, Literal, Annotated, Optional
 
 from livekit import rtc
 from livekit.agents import (
@@ -25,6 +25,81 @@ load_dotenv()
 
 logger = logging.getLogger("my-worker")
 logger.setLevel(logging.INFO)
+
+# Define function context for our ERP designer agent
+class ERPDesignerFunctions(llm.FunctionContext):
+    def __init__(self, job_context: JobContext = None):
+        super().__init__()
+        self.job_context = job_context
+        self.participant = None
+        self.logger = logging.getLogger("erp-functions")
+        self.logger.setLevel(logging.INFO)
+
+    def set_participant(self, participant: rtc.Participant):
+        self.participant = participant
+        self.logger.info(f"Set participant: {participant.identity}")
+
+    @llm.ai_callable()
+    async def finishConversation(
+        self,
+        companyName: Annotated[
+            str, llm.TypeInfo(description="Nombre real de la empresa del cliente")
+        ],
+        ownerName: Annotated[
+            str, llm.TypeInfo(description="Nombre real del dueño o representante de la empresa")
+        ],
+    ) -> str:
+        """Finalizar la conversación y comenzar el proceso de diseño del sistema ERP con el nombre de la empresa y el dueño."""
+        if not self.participant or not self.job_context:
+            self.logger.error("No participant or job context available for RPC")
+            return "Error: No se pudo finalizar la conversación. Falta información del participante."
+        
+        self.logger.info(f"Finishing conversation with company: {companyName}, owner: {ownerName}")
+        
+        try:
+            # Forward the function call to the frontend via RPC
+            self.logger.info(f"Forwarding function call to frontend for participant: {self.participant.identity}")
+            response = await self.job_context.room.local_participant.perform_rpc(
+                destination_identity=self.participant.identity,
+                method="function_call.finishConversation",
+                payload=json.dumps({
+                    "companyName": companyName,
+                    "ownerName": ownerName
+                }),
+                response_timeout=90.0  # Give it plenty of time since design generation might take time
+            )
+            
+            self.logger.info(f"RPC response received: {response}")
+            return f"He finalizado la conversación y he comenzado el proceso de diseño para {companyName}. Gracias por su tiempo, {ownerName}."
+        except Exception as e:
+            self.logger.error(f"Error in finishConversation: {str(e)}")
+            return "Ha ocurrido un error al intentar finalizar la conversación. Por favor intente nuevamente."
+
+    @llm.ai_callable()
+    async def debug(
+        self,
+        message: Annotated[
+            str, llm.TypeInfo(description="Mensaje de depuración para enviar al sistema")
+        ],
+    ) -> str:
+        """Enviar información de depuración al sistema para diagnóstico."""
+        if not self.participant or not self.job_context:
+            return "Error: No se pudo enviar información de depuración."
+        
+        try:
+            self.logger.info(f"Debug message: {message}")
+            response = await self.job_context.room.local_participant.perform_rpc(
+                destination_identity=self.participant.identity,
+                method="function_call.debug",
+                payload=json.dumps({
+                    "message": message
+                }),
+                response_timeout=5.0
+            )
+            return f"Información de depuración enviada: {message}"
+        except Exception as e:
+            self.logger.error(f"Error in debug function: {str(e)}")
+            return "Error al enviar información de depuración."
 
 @dataclass
 class SessionConfig:
@@ -90,12 +165,19 @@ async def entrypoint(ctx: JobContext):
 
     participant = await ctx.wait_for_participant()
 
-    run_multimodal_agent(ctx, participant)
+    # Create function context with job context
+    fnc_ctx = ERPDesignerFunctions(ctx)
+    
+    # Set participant in function context
+    fnc_ctx.set_participant(participant)
+    
+    # Run agent with function context
+    run_multimodal_agent(ctx, participant, fnc_ctx)
 
     logger.info("agent started")
 
 
-def run_multimodal_agent(ctx: JobContext, participant: rtc.Participant):
+def run_multimodal_agent(ctx: JobContext, participant: rtc.Participant, fnc_ctx: ERPDesignerFunctions):
     metadata = json.loads(participant.metadata)
     config = parse_session_config(metadata)
 
@@ -103,17 +185,26 @@ def run_multimodal_agent(ctx: JobContext, participant: rtc.Participant):
 
     if not config.openai_api_key:
         raise Exception("OpenAI API Key is required")
-
+    
+    # Get instructions from metadata
+    instructions = metadata.get("instructions", "")
+    
+    # Log available functions without calling list_functions()
+    logger.info("Function context initialized with AI callable functions")
+    logger.info("Available functions: finishConversation, debug")
+    
     model = openai.realtime.RealtimeModel(
         api_key=config.openai_api_key,
-        instructions=config.instructions,
+        instructions=instructions,
         voice=config.voice,
         temperature=config.temperature,
         max_response_output_tokens=config.max_response_output_tokens,
         modalities=config.modalities,
         turn_detection=config.turn_detection,
     )
-    assistant = MultimodalAgent(model=model)
+    
+    # Pass function context to MultimodalAgent as per documentation
+    assistant = MultimodalAgent(model=model, fnc_ctx=fnc_ctx)
     assistant.start(ctx.room)
     session = model.sessions[0]
 
@@ -126,6 +217,9 @@ def run_multimodal_agent(ctx: JobContext, participant: rtc.Participant):
         )
         session.response.create()
 
+    # Note: We don't need to manually register function handlers here
+    # The llm.ai_callable decorator takes care of registering them
+    
     @ctx.room.local_participant.register_rpc_method("pg.updateConfig")
     async def update_config(
         data: rtc.rpc.RpcInvocationData,
@@ -321,4 +415,10 @@ def run_multimodal_agent(ctx: JobContext, participant: rtc.Participant):
 
 
 if __name__ == "__main__":
+    # Configure logging to better debug function calls
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+    
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint, worker_type=WorkerType.ROOM))

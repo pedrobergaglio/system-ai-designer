@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-03-14T16:22:31.479Z",
+  "function": "finishConversation",
+  "rawPayload": "{\"companyName\": \"Energ\\u00eda Global\", \"ownerName\": \"Pedro Vergara\"}",
+  "parsedParams": {
+    "companyName": "Energía Global",
+    "ownerName": "Pedro Vergara"
+  }
+}

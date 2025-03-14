@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { fetchSessionData } from '../../lib/langGraphClient';
+import { fetchSessionData } from '../../src/lib/langGraphClient';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -7,17 +7,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { threadId, checkpointId } = req.body;
+    const { threadId } = req.body;
     
-    if (!threadId || !checkpointId) {
-      return res.status(400).json({ error: 'Thread ID and Checkpoint ID are required' });
+    if (!threadId) {
+      return res.status(400).json({ error: 'Thread ID is required' });
     }
     
-    // Fetch session data
-    const sessionData = await fetchSessionData(threadId, checkpointId);
+    console.log(`[fetchSession] Fetching session data for thread: ${threadId}`);
+    
+    // Fetch session data - no longer requiring checkpoint ID
+    const sessionData = await fetchSessionData(threadId);
     
     // Save to file using the saveSession API
-    const filename = `session_${threadId}_${checkpointId}.json`;
+    const filename = `session_${threadId}.json`;
     
     // Call our save session API
     const saveResponse = await fetch(`${req.headers.origin}/api/saveSession`, {
@@ -29,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const saveResult = await saveResponse.json();
     
     if (!saveResult.success) {
-      console.warn('Failed to save session data to file:', saveResult.error);
+      console.warn('[fetchSession] Failed to save session data to file:', saveResult.error);
     }
     
     return res.status(200).json({ 
@@ -39,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       filename: saveResult.success ? filename : null
     });
   } catch (error) {
-    console.error('API error:', error);
+    console.error('[fetchSession] API error:', error);
     return res.status(500).json({ error: 'Failed to fetch session data' });
   }
 }

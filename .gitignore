@@ -44,3 +44,5 @@ next-env.d.ts
 
 # venvs
 scripts/venv
+# LangGraph API
+.langgraph_api

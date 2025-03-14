@@ -1,6 +1,19 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { PlaygroundStateProvider } from '../hooks/use-playground-state';
+import { ConnectionProvider } from '../hooks/use-connection';
+import { PHProvider } from '../hooks/posthog-provider';
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from 'react-hot-toast';
+import dynamic from "next/dynamic";
+
+/* const PostHogPageView = dynamic(
+  () => import("../components/posthog-pageview"),
+  {
+    ssr: false,
+  }
+); */
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,13 +35,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+  return(
+
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* <PHProvider> */}
+      <PlaygroundStateProvider>
+        <ConnectionProvider>
+        <Toaster />
+          {/* <TooltipProvider> */}
+            {/* <PostHogPageView /> */}
+            {children}
+            {/* <Toaster /> */}
+          {/* </TooltipProvider> */}
+        </ConnectionProvider>
+      </PlaygroundStateProvider>
+    {/* </PHProvider> */}
       </body>
     </html>
-  );
+  
+
+);
+  /* return (
+    
+  ); */
 }
