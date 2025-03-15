@@ -75,14 +75,16 @@ class ERPDesignerFunctions(llm.FunctionContext):
             self.logger.error(f"Error in finishConversation: {str(e)}")
             return "Ha ocurrido un error al intentar finalizar la conversación. Por favor intente nuevamente."
 
-    @llm.ai_callable()
+    """ @llm.ai_callable()
     async def debug(
         self,
         message: Annotated[
             str, llm.TypeInfo(description="Mensaje de depuración para enviar al sistema")
         ],
     ) -> str:
-        """Enviar información de depuración al sistema para diagnóstico."""
+        """
+    #Enviar información de depuración al sistema para diagnóstico.
+    """
         if not self.participant or not self.job_context:
             return "Error: No se pudo enviar información de depuración."
         
@@ -100,7 +102,7 @@ class ERPDesignerFunctions(llm.FunctionContext):
         except Exception as e:
             self.logger.error(f"Error in debug function: {str(e)}")
             return "Error al enviar información de depuración."
-
+ """
 @dataclass
 class SessionConfig:
     openai_api_key: str

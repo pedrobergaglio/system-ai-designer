@@ -5,26 +5,29 @@ import { NextApiRequest, NextApiResponse } from "next";
 // Enhanced instructions with very explicit Spanish examples of function usage
 const updatedInstructions = `${ERP_CONSULTANT_INSTRUCTIONS_SHORT}
 
-INSTRUCCIONES ADICIONALES IMPORTANTES PARA FINALIZAR LA CONVERSACIÓN:
-Cuando hayas recopilado toda la información necesaria, debes:
+IMPORTANT ADDITIONAL INSTRUCTIONS TO END THE CONVERSATION:
+When you have collected all the necessary information, you must:
 
-1. Informar al usuario que la entrevista ha finalizado y que el diseño del sistema comenzará
-2. Decir algo como: "Perfecto, tengo toda la información necesaria. Ahora voy a iniciar el proceso de diseño del sistema ERP basado en nuestra conversación. En unos momentos podrás ver el resultado."
-3. DESPUÉS DE TU MENSAJE FINAL, debes llamar a la función finishConversation para terminar la entrevista.
+1. Inform the user that the interview has ended and that system design will begin.
+2. Say something like: "Perfect, I have all the necessary information. Now I'll start the ERP system design process based on our conversation. Is that okay with you?"
+3. AFTER YOUR FINAL MESSAGE, you must call the finishConversation function to end the interview.
 
-CÓMO USAR LA FUNCIÓN finishConversation:
-Es fundamental que proporciones valores reales (no textuales) para companyName y ownerName. La función debe ser llamada así:
+HOW TO USE THE finishConversation FUNCTION:
+- If you're going to end the conversation, don't talk in that turn. Simply call the finishConversation function with the correct values.
+- If you want to end but remain conversational, you can ask the user to confirm the ending, and then call finishConversation.
 
-finishConversation(
+It's essential that you provide real values (not placeholders) for companyName and ownerName. The function must be called like this:
+
+finishConversation({
   companyName: "Nombre real de la empresa", 
   ownerName: "Nombre real del cliente"
-)
+});
 
-Por ejemplo:
-- CORRECTO: finishConversation(companyName: "Acme Tecnología", ownerName: "Juan Pérez")
-- INCORRECTO: finishConversation(companyName: "companyName", ownerName: "ownerName")
+For example:
+- CORRECT: finishConversation({ companyName: "Acme Tecnología", ownerName: "Juan Pérez" });
+- INCORRECT: finishConversation({ companyName: "companyName", ownerName: "ownerName" });
 
-IMPORTANTE: Siempre usa los datos reales que obtuviste durante la conversación, nunca uses nombres genéricos.`;
+IMPORTANT: Always use the real data you obtained during the conversation, never use generic names.`;
 
 // More robust room creation management
 const roomState = {

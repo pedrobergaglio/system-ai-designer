@@ -50,7 +50,7 @@ export function BottomDocker() {
                 key={view.name}
                 className={`px-3 py-1 text-sm rounded-md transition-all whitespace-nowrap ${
                   activeView?.name === view.name
-                    ? 'bg-white text-gray-900 font-medium'
+                    ? 'bg-gray-200 text-gray-900 font-medium'
                     : 'hover:bg-gray-700'
                 }`}
                 onClick={() => setActiveView(view)}

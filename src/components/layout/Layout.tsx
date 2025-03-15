@@ -29,6 +29,7 @@ export default function Layout({ threadId, checkpointId }: LayoutProps) {
     isVoiceAssistantOpen,
     toggleVoiceAssistant,
     threadId: generatedThreadId,
+    setThreadId,
     experienceState,
     setExperienceState,
     toggleInfoPanel,
@@ -38,8 +39,95 @@ export default function Layout({ threadId, checkpointId }: LayoutProps) {
   const hasLoadedDataRef = useRef<boolean>(false);
   const loadedThreadIdRef = useRef<string | null>(null);
   
+  // Function to fetch data from LangGraph - defined first to avoid "used before declaration" error
+  const fetchData = async () => {
+    const currentThreadId = generatedThreadId || threadId;
+    
+    // CRITICAL FIX: Check if we already loaded this specific thread ID
+    if (loadedThreadIdRef.current === currentThreadId) {
+      console.log('[Layout] Already loaded data for this thread ID, skipping fetch:', currentThreadId);
+      return;
+    }
+    
+    // Skip fetch if design is already being loaded
+    if (isLoading) {
+      console.log('[Layout] Already loading data, skipping duplicate fetch');
+      return;
+    }
+    
+    try {
+      console.log('[Layout] Starting data fetch', { 
+        threadId: currentThreadId,
+        checkpointId,
+        isLoading,
+        experienceState,
+        hasLoadedData: hasLoadedDataRef.current
+      });
+      
+      setIsLoading(true);
+      setError(null);
+      
+      logger.info('Fetching session data...', { activeThreadId: currentThreadId, activeCheckpointId: checkpointId });
+      const sessionData = await fetchSessionData(currentThreadId, checkpointId);
+      
+      if (sessionData?.values?.erp_design) {
+        setERPDesign(sessionData.values.erp_design);
+        logger.info('ERP design loaded successfully');
+        
+        // CRITICAL FIX: Mark this specific threadId as loaded
+        hasLoadedDataRef.current = true;
+        loadedThreadIdRef.current = currentThreadId;
+        console.log('[Layout] Marked thread as loaded:', currentThreadId);
+        
+        // Keep experience state as design_ready after successful fetch
+        if (experienceState === 'processing') {
+          console.log('[Layout] Setting experience state to design_ready after successful fetch');
+          setExperienceState('design_ready');
+        }
+      } else {
+        throw new Error('ERP design data not found in session');
+      }
+    } catch (err) {
+      logger.error('Failed to load ERP design', err);
+      setError('No se pudo cargar el diseño. Por favor intente nuevamente más tarde.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Add another useEffect to ensure the stored threadId is applied to context
+  useEffect(() => {
+    // If we have a valid threadId from props but not in context, set it
+    if (threadId && threadId !== 'NONE' && !generatedThreadId) {
+      console.log('[Layout] Setting saved threadId in context:', threadId);
+      setThreadId(threadId);
+    }
+    
+    // Log all relevant threadId values for debugging
+    console.log('[Layout] ThreadId values:', {
+      propsThreadId: threadId,
+      generatedThreadId,
+      storedInLocalStorage: typeof window !== 'undefined' ? localStorage.getItem('lastThreadId') : null
+    });
+  }, [threadId, generatedThreadId, setThreadId]);
+  
   // Fetch data from LangGraph based on experience state
   useEffect(() => {
+    // Only log state change once per mount
+    console.log('[Layout] Current experience state:', experienceState, 'hasLoadedData:', hasLoadedDataRef.current);
+    
+    // Important: If we're in design_ready state but haven't loaded data yet, and have a valid threadId,
+    // force a fetch even in design_ready state (for page reloads)
+    const activeThreadId = generatedThreadId || threadId; // Changed variable name to avoid redeclaration
+    if (experienceState === 'design_ready' && 
+        !hasLoadedDataRef.current && 
+        activeThreadId && 
+        activeThreadId !== 'NONE') {
+      console.log('[Layout] In design_ready state with valid threadId but no data, forcing fetch with threadId', activeThreadId);
+      fetchData();
+      return;
+    }
+
     // IMPORTANT FIX: Only prevent interviewing state AFTER design is loaded successfully
     // And only if we have already loaded data for this specific thread
     if (hasLoadedDataRef.current && 
@@ -58,62 +146,6 @@ export default function Layout({ threadId, checkpointId }: LayoutProps) {
       return;
     }
     
-    // Function to fetch data from LangGraph
-    const fetchData = async () => {
-      const activeThreadId = generatedThreadId || threadId;
-      
-      // CRITICAL FIX: Check if we already loaded this specific thread ID
-      if (loadedThreadIdRef.current === activeThreadId) {
-        console.log('[Layout] Already loaded data for this thread ID, skipping fetch:', activeThreadId);
-        return;
-      }
-      
-      // Skip fetch if design is already being loaded
-      if (isLoading) {
-        console.log('[Layout] Already loading data, skipping duplicate fetch');
-        return;
-      }
-      
-      try {
-        console.log('[Layout] Starting data fetch', { 
-          threadId: activeThreadId,
-          checkpointId,
-          isLoading,
-          experienceState,
-          hasLoadedData: hasLoadedDataRef.current
-        });
-        
-        setIsLoading(true);
-        setError(null);
-        
-        logger.info('Fetching session data...', { activeThreadId, activeCheckpointId: checkpointId });
-        const sessionData = await fetchSessionData(activeThreadId, checkpointId);
-        
-        if (sessionData?.values?.erp_design) {
-          setERPDesign(sessionData.values.erp_design);
-          logger.info('ERP design loaded successfully');
-          
-          // CRITICAL FIX: Mark this specific threadId as loaded
-          hasLoadedDataRef.current = true;
-          loadedThreadIdRef.current = activeThreadId;
-          console.log('[Layout] Marked thread as loaded:', activeThreadId);
-          
-          // Keep experience state as design_ready after successful fetch
-          if (experienceState === 'processing') {
-            console.log('[Layout] Setting experience state to design_ready after successful fetch');
-            setExperienceState('design_ready');
-          }
-        } else {
-          throw new Error('ERP design data not found in session');
-        }
-      } catch (err) {
-        logger.error('Failed to load ERP design', err);
-        setError('No se pudo cargar el diseño. Por favor intente nuevamente más tarde.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
     // If thread ID changes, reset the loaded flag
     if (generatedThreadId && generatedThreadId !== loadedThreadIdRef.current) {
       console.log('[Layout] Thread ID changed, will reload data:', generatedThreadId);
@@ -124,10 +156,22 @@ export default function Layout({ threadId, checkpointId }: LayoutProps) {
     // Only fetch if we have a threadId and either:
     // 1. Haven't loaded data yet, or
     // 2. The threadId has changed
-    const activeThreadId = generatedThreadId || threadId;
-    const shouldFetch = activeThreadId && 
-                       activeThreadId !== 'NONE' && 
-                       loadedThreadIdRef.current !== activeThreadId;
+    const effectiveThreadId = generatedThreadId || threadId; // Changed variable name to avoid redeclaration
+    
+    // IMPORTANT: Log and validate the threadId before making decisions
+    console.log('[Layout] Checking if we should fetch:', { 
+      effectiveThreadId,
+      loadedThreadId: loadedThreadIdRef.current,
+      hasLoadedData: hasLoadedDataRef.current,
+      isValidThreadId: effectiveThreadId && effectiveThreadId !== 'NONE'
+    });
+    
+    const shouldFetch = effectiveThreadId && 
+                       effectiveThreadId !== 'NONE' && 
+                       loadedThreadIdRef.current !== effectiveThreadId;
+
+    console.log('[Layout] Should fetch data:', shouldFetch, 'for threadId:', effectiveThreadId, 'loadedThreadId:', loadedThreadIdRef.current);
+
     
     if (shouldFetch) {
       fetchData();

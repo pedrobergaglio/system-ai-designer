@@ -27,6 +27,7 @@ interface UIContextType {
   toggleVoiceAssistant: () => void;
   isDesignGenerating: boolean;
   threadId: string | null;
+  setThreadId: (threadId: string | null) => void; // Add this line
   generateDesignFromTranscript: (data: TranscriptSubmissionData) => Promise<void>;
   resetDesignState: () => void;
   experienceState: ExperienceState;
@@ -79,6 +80,22 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
     saveToLocalStorage('isInfoPanelOpen', isInfoPanelOpen);
   }, [isSidebarOpen, isInfoPanelOpen]);
 
+  // Save threadId to localStorage when it changes
+  useEffect(() => {
+    if (threadId) {
+      // Make sure we're storing a clean string without extra quotes
+      const cleanThreadId = typeof threadId === 'string' ? threadId.replace(/^"|"$/g, '') : threadId;
+      console.log('[UIContext] Saving threadId to localStorage:', cleanThreadId);
+      saveToLocalStorage('lastThreadId', cleanThreadId);
+      
+      // Add verification log
+      setTimeout(() => {
+        const savedId = localStorage.getItem('lastThreadId');
+        console.log('[UIContext] Verification - lastThreadId in localStorage:', savedId);
+      }, 100);
+    }
+  }, [threadId]);
+  
   // Log the experience state when it changes to help with debugging
   useEffect(() => {
     // Only log and save if the state actually changed
@@ -217,13 +234,18 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
     }
   };
   
-  // Reset design state
+  // Reset design state - update to also clear localStorage values
   const resetDesignState = () => {
     setERPDesign(null);
     setActiveView(null);
     setThreadId(null);
     setError(null);
     setExperienceState('start');
+    
+    // Clear related localStorage values
+    localStorage.removeItem('lastThreadId');
+    localStorage.removeItem('experienceState');
+    console.log('[UIContext] Reset design state and cleared localStorage values');
   };
   
   // Toggle functions
@@ -253,6 +275,7 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
         toggleVoiceAssistant,
         isDesignGenerating,
         threadId,
+        setThreadId, // Add this line
         generateDesignFromTranscript,
         resetDesignState,
         experienceState,

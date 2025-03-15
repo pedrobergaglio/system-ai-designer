@@ -77,7 +77,7 @@ export function InfoPanel({ isOpen, onClose }: InfoPanelProps) {
           <div>
             <h2 className="text-xl font-bold">Información del Sistema</h2>
             {threadId && (
-              <p className="text-xs text-gray-500 mt-1">Thread ID: {threadId}</p>
+              <p className="text-xs text-gray-500 mt-1">Thread ID: {typeof threadId === 'string' ? threadId.replace(/^"|"$/g, '') : threadId}</p>
             )}
           </div>
           <button 

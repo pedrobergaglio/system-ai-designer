@@ -8,12 +8,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Force light mode */
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Remove or comment out dark mode preferences */
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
 
@@ -22,3 +25,11 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Force light mode for Tailwind elements */
+/* .dark {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #171717;
+}
+ */
